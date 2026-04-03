@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriExport - Farmer Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loader, Toast, Modal -->
+    <div id="loader" class="loader-overlay"><div class="spinner"></div><div id="loader-text">Loading...</div></div>
+    <div id="toast-container"></div>
+    <div id="app-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h3 id="modal-title">Modal</h3><button class="modal-close" onclick="ui.closeModal()">&times;</button></div><div id="modal-body"></div></div></div>
+
+    <!-- FARMER DASHBOARD LAYOUT -->
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header"><img src="assets/images/logo.jpeg" alt="AgriExport" style="width: 100px; height: 100px; border-radius: 50%; margin-right: 0.75rem; margin-left:50px; object-fit: cover;">       </div>
+            <nav class="sidebar-nav" id="nav-Farmer">
+                <a class="nav-item active" onclick="farmer.switchTab('overview')">📊 My Dashboard</a>
+                <a class="nav-item" onclick="farmer.switchTab('add')">➕ Upload Product</a>
+                <a class="nav-item" onclick="farmer.switchTab('products')">📦 Status & Earnings</a>
+            </nav>
+            <div style="padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                <button class="btn btn-outline w-full" style="color: white; border-color: rgba(255,255,255,0.2);" onclick="auth.logout()">🚪 Sign Out</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="flex items-center gap-4">
+                    <button class="menu-toggle" onclick="app.toggleSidebar()">☰</button>
+                    <div>
+                        <h3 id="topbar-name" style="margin:0; font-size: 1.1rem;">Welcome</h3>
+                        <span id="topbar-role" style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Farmer</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="btn btn-outline btn-sm" onclick="app.toggleTheme()">🌓 Theme</button>
+                </div>
+            </header>
+            <div class="content-area" id="dashboard-content"></div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/farmer.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            db.init();
+            const user = db.getCurrentUser();
+            if (!user || user.role !== 'Farmer') window.location.href = 'login.html';
+            document.getElementById('topbar-name').innerText = user.name;
+            farmer.switchTab('overview');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriExport - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loader -->
+    <div id="loader" class="loader-overlay"><div class="spinner"></div><div id="loader-text">Loading...</div></div>
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- LOGIN PAGE -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <div style="display: flex; justify-content: center; margin-bottom: 1rem;"><img src="assets/images/logo.jpeg" alt="AgriExport" style="width: 180px; height: 180px; border-radius: 50%; background: var(--primary-light); padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); object-fit: cover;"></div>
+            <h2>Welcome Back</h2>
+            <p class="mb-4" style="color: var(--text-muted); font-size: 0.9rem;">Select your role to login</p>
+            
+            <div class="role-selector">
+                <div class="role-card active" onclick="auth.setRole('Farmer')"><span style="font-size:24px;">👨‍🌾</span> Farmer</div>
+                <div class="role-card" onclick="auth.setRole('Exporter')"><span style="font-size:24px;">🚢</span> Exporter</div>
+                <div class="role-card" onclick="auth.setRole('Admin')"><span style="font-size:24px;">🏢</span> Admin</div>
+            </div>
+
+            <form onsubmit="auth.login(event)">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="loginEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-full">Secure Login</button>
+            </form>
+            <div class="mt-4" style="font-size: 0.9rem;">
+                <p>Don't have an account? <a href="register.html">Register here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            db.init();
+            const user = db.getCurrentUser();
+            if (user) window.location.href = user.role.toLowerCase() + '.html';
+        });
+    </script>
+</body>
+</html>

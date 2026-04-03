@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriExport - Register</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loader -->
+    <div id="loader" class="loader-overlay"><div class="spinner"></div><div id="loader-text">Loading...</div></div>
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- REGISTER PAGE -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <div style="display: flex; justify-content: center; margin-bottom: 1rem;"><img src="assets/images/logo.jpeg" alt="AgriExport" style="width: 180px; height: 180px; border-radius: 50%; background: var(--primary-light); padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); object-fit: cover;"></div>
+            <h2>Create Account</h2>
+            <p class="mb-4" style="color: var(--text-muted); font-size: 0.9rem;">Join the global supply chain</p>
+            
+            <div class="role-selector">
+                <div class="role-card active" onclick="auth.setRole('Farmer')"><span style="font-size:24px;">👨‍🌾</span> Farmer</div>
+                <div class="role-card" onclick="auth.setRole('Exporter')"><span style="font-size:24px;">🚢</span> Exporter</div>
+                <div class="role-card" onclick="auth.setRole('Admin')"><span style="font-size:24px;">🏢</span> Admin</div>
+            </div>
+
+            <form onsubmit="auth.register(event)">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="regName" class="form-control" required>
+                </div>
+                
+                <!-- Exporter Only Field -->
+                <div class="form-group hidden" id="regCompanyField">
+                    <label class="form-label">Export Company Name</label>
+                    <input type="text" id="regCompany" class="form-control" placeholder="e.g. Global AgriCorp">
+                    <small style="color: var(--warning); font-size: 0.8rem;">* Farmers will send products directly to this company.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="regEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Create Password</label>
+                    <input type="password" id="regPassword" class="form-control" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary w-full">Register</button>
+            </form>
+            <div class="mt-4" style="font-size: 0.9rem;">
+                <p>Already registered? <a href="login.html">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            db.init();
+        });
+    </script>
+</body>
+</html>
